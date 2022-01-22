@@ -69,7 +69,21 @@ const main = async () => {
           let exp = algebra.parse(equation)
           let result = exp.solveFor(resovle)
           if(result !== undefined){
-            result = `${resovle} = ${eval(result.toString())}`
+            let get = result.toString()
+            const includeAlpha = (str) => {
+              let strs = str.split('')
+              for(let char of strs){
+                if(/^[a-zA-Z]*$/.test(char)){
+                  return true
+                }
+              }
+              return false
+            }
+            if(includeAlpha(get)){
+              result = `${resovle} = ${get}`
+            }else{
+              result = `${resovle} = ${eval(get)}`
+            }
             console.log(result)      
           }else{
             throw new Error('calculation error')
